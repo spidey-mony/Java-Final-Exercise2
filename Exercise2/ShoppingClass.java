@@ -1,4 +1,4 @@
-package Exercise5;
+package Exercise2;
 
 interface DiscountRate {
     double getServiceMemberDiscount();
@@ -97,23 +97,24 @@ class Sale {
     }
 
     public double getTotalExpense() {
-        return serviceExpense + productExpense;
-    }
-
-    public void displayInfo() {
         double serviceDiscount = customer.getServiceMemberDiscount() * serviceExpense;
         double productDiscount = customer.getProductMemberDiscount() * productExpense;
+        double totalDiscount = serviceDiscount + productDiscount;
 
         double discountedServiceExpense = serviceExpense - serviceDiscount;
         double discountedProductExpense = productExpense - productDiscount;
 
-        double totalExpense = discountedServiceExpense + discountedProductExpense;
+        System.out.println("Discount: " + totalDiscount);
+        return discountedServiceExpense + discountedProductExpense;
+    }
+
+    public void displayInfo() {
 
         System.out.println("Customer: " + customer.getCustomerName());
         System.out.println("Date: " + date);
-        System.out.println("Service Expense: " + serviceExpense + " (Discount: " + serviceDiscount + ")");
-        System.out.println("Product Expense: " + productExpense + " (Discount: " + productDiscount + ")");
-        System.out.println("Total Expense: " + totalExpense);
+        System.out.println("Service Expense: " + serviceExpense);
+        System.out.println("Product Expense: " + productExpense);
+        System.out.println("Total Expense: " + getTotalExpense());
     }
 }
 
@@ -121,23 +122,19 @@ class Sale {
 public class ShoppingClass {
     public static void main(String[] args) {
 
-        Customer obj1 = new Customer("Tom Holland", "Premium");
-        Customer obj2 = new Customer("Andrew Garfield", "Silver");
+        Customer customer1 = new Customer("Tom Holland", "Premium");
+        Customer customer2 = new Customer("Andrew Garfield", "Silver");
 
-        Sale obj3 = new Sale(obj1, "2024-02-22");
-        obj3.setServiceExpense(100.0);
-        obj3.setProductExpense(50.0);
+        Sale sale1 = new Sale(customer1, "2024-02-22");
+        sale1.setServiceExpense(100.0);
+        sale1.setProductExpense(50.0);
+        sale1.displayInfo();
 
-        Sale obj4 = new Sale(obj2, "2024-02-20");
-        obj4.setServiceExpense(120.0);
-        obj4.setProductExpense(67.0);
 
-        System.out.println("Product Discount Sale:");
-        obj3.displayInfo();
-
-        System.out.println("Service Discount Sale");
-        obj4.displayInfo();
-
+        Sale sale2 = new Sale(customer2, "2024-02-20");
+        sale2.setServiceExpense(120.0);
+        sale2.setProductExpense(67.0);
+        sale2.displayInfo();
     }
 }
 
